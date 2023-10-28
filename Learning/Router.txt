@@ -1,0 +1,10 @@
+BrowserRouter provides a way to remove #, in the code
+<Routes>
+{routes.map((route,index)=><Route key={index} path={route.path} element={<route.component/>}/>)}
+</Routes>
+
+route folder=>
+{
+    path: eRoutes.signup,
+    component: lazy(() => import("./pages/Login")),
+  },

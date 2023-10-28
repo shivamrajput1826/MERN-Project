@@ -1,0 +1,17 @@
+<style>
+  .parent {
+    width: 200px;
+  }
+  .box {
+    width: 100%;
+    border: 2px solid hotpink;
+    padding: 20px;
+  }
+</style>
+<div class="parent">
+  <div class="box"></div>
+</div>
+->now the box width is 244 px as the width resolving is not ok  width:200px
+->*, *::before, *::after {
+  box-sizing: border-box;
+} this will resolve and width: 100% => width:156px

@@ -1,0 +1,32 @@
+5 Files to be included here
+1) globalDataContext
+ -> const initialState={}
+ -> export const GlobalContext=createContext{
+    state: initialState,
+    dispatch: ()=> null
+ }
+ 2) globalReducer
+   export const globalReducer=(state,action)=>{return state}
+3) GlobalProvider
+  export function GlobalProvider({children}){
+    const [state,dispatch]=useReducer(globalReducer,{})
+
+    const providerVal=useMemo(()=>{
+        return {
+            dispatch,
+            state
+        }
+    },[state])
+
+    return (
+        <GlobalContext.Provider value={providerVal}>
+        {children}
+        </GlobalContext.Provider>
+    )
+  }
+  4) types => interface combination can be used in types
+  5) Index.ts
+    export const useGlobalData =
+
+
+ 

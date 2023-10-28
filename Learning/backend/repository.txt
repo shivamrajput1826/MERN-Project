@@ -1,0 +1,7 @@
+repository api
+-> create() = makes a new instance of an entity, but does not persist it the db
+-> save() = adds or updates a record to the db
+-> find() = runs a query and return a list of entities
+->findOne() = runs a query returning the first record matching the search criteria
+->remove() = remove a record from the db
+

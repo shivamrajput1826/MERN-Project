@@ -1,0 +1,17 @@
+hasError, error, and errorInfo are three things which need to be there ..
+we add a error with an eventListener and remove it while it unmounts
+now we show error.toString()
+
+const error= new Error("This is an example error message");
+error.toString()=>Error:This is an example error message.
+
+errorInfo.componentStack provies a string containing a stack trace of the 
+components that were in the process of rendering when as error occurred.It's the part of error
+boundary mechanism 
+
+
+when an error occurs during the rendering of a component , react captured the information about 
+the components
+
+errorInfo.componentStack is a string theat typically looks something like This
+inComponentName(at FileName.js:lineNumber:columnNumber)

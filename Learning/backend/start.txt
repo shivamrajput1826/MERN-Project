@@ -1,0 +1,57 @@
+nest new backend
+->nest g service users
+->nest g controller users
+->nest g module users
+->yarn add @nestjs/typeorm typeorm sqlite3
+-> Connection of database in the APP module
+->This will be shared in user module
+-> user mmodule , we have entity file.. entity file defines a single kind of resource..
+=> User Entity=> List the different properties that a user has(no functionlaity)
+-> UserRepository => Methods to find, update, delete and create a user..
+-> in App module
+imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite', // we are using sqlite here , sqlite is a file database, here we store all the 
+                      //in a single file 
+      database: 'db.sqlite',
+      entities: [],
+      synchronize: true, //only use in devlopment environment=> it will look at the structure of 
+      // of the entity and update the structure of database.Create, remove tables, and it willl
+      // change the type of data stored in these columns as well.
+    }),
+    UsersModule,
+  ],
+  add this things there..
+
+  Creating a entity file
+  1) Create a entity file, and create a class in it that lists all the properties that your
+  entity will have
+  2) Connect the entity to its parent module.This creates a UserRepository
+  3)Connect the entity to its root connection(in app module)
+
+  entity file:
+  import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column()
+  userName: string;
+  @Column()
+  email: string;
+  @Column()
+  password: string;
+}
+
+Now in user module=>  imports: [TypeOrmModule.forFeature([User])],
+Now in app module=>    entities: [User],
+
+cmd+shift+p=> sqlite;
+
+ app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+    }),
+  ); 
+  for setting global validationPipes
