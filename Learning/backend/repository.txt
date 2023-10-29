@@ -5,3 +5,54 @@ repository api
 ->findOne() = runs a query returning the first record matching the search criteria
 ->remove() = remove a record from the db
 
+In User service file, we added this code
+constructor(@InjectRepository(User) private repo: Repository<User>) {}
+private-> by using this we can abbreviate that property definition and assignment
+The type meditation on this is repository, we have applied a generic type to its user,
+repo: Repository<User> => this means that repo is going to be an instance of a typeorm
+repository that deals with an instance of user.
+
+@InjectRepository(User)=>This is going to tell dependecy injection system that we need
+User repostitory..
+dependecy Injection uses this type annotation right here to figure out what instance
+it need to inject into the class at runtime.
+
+now we first create an instance of user using create and then user that user
+into the database using save.If we don't create an instance, all the hooks added
+with entity will not be executed 
+
+now that we have to add this to the user controller ..
+@Post('/signup')
+  createUser(@Body() body: CreateUserDto) {
+    this.userService.create(body.username, body.email, body.password);
+  }
+
+
+  
+                                                                                   User Entiity(Defines what a user is)        
+                                |(Define routes+pick data from incoming request)|  |                       |
+Request-> validation Pipe--------------------> UserController--------------->userService-------------->UseRepository-------------------->SqliteDB
+   |(Using createDto, they validate)|                             |(Contain our real app logic)|   |(Created by TypeOrm,Interface to the DB)|        
+
+
+
+async update(id: number, attrs: Partial<User>) { 
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('user not found');
+    }
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
+Partial<User> => essential for flexible user
+
+Use PATCH when you want to apply partial updates to a resource.
+ For example, if you have a JSON object representing a user profile and 
+ you want to update only the user's email address, you would use PATCH to 
+ send just the changes to the email field.
+
+Use PUT when you want to replace a resource entirely or create a new 
+resource at a specific URI. For example, if you are uploading a new 
+version of an image to a specific URL, you would use PUT to completely 
+replace the existing image with the new one.
+

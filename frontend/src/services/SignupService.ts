@@ -7,13 +7,13 @@ export class SignupService extends Service {
   }
 
   async signupUser(
-    userName?: string,
+    username?: string,
     email?: string,
     password?: string
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     const path = SIGN_UP_URL;
-    const body = { userName, email, password };
+    const body = { username, email, password };
 
     try {
       const result = await this.post(path, body);
