@@ -38,7 +38,6 @@ const Form = ({ fields, onSubmit,...otherProps }: IForms) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log("formData:",formData)
   };
 
   const handleSubmit = (e: FormEvent) => {

@@ -31,8 +31,14 @@ export class Service {
     if (request.method !== httpMethods.GET && request.body) {
       options.body = JSON.stringify(request.body);
     }
+    if (request.headers === undefined) {
+      options.headers = {
+        "Content-Type": "application/json",
+      };
+    }
 
     try {
+      console.log(fullUrl, options);
       const response = await fetch(fullUrl, options);
       if (!response.ok) {
         throw new Error(`HTTP error! Status:${response.status}`);

@@ -51,7 +51,8 @@ cmd+shift+p=> sqlite;
 
  app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
+      whitelist: true, // incoming request does not have any other properties than 
+      // what is expected in the dto.
     }),
   ); 
   for setting global validationPipes
