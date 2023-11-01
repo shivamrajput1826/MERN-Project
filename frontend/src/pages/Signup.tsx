@@ -1,5 +1,5 @@
 import Form from "../components/form/Form";
-import { SignupService } from "../services/signupService";
+import { AuthService } from "../services/authService";
 
 const Signup = () => {
   const fields = [
@@ -9,7 +9,7 @@ const Signup = () => {
   ];
 
   const onSubmit = (formData: Record<string, string>) => {
-    const signUpService = new SignupService();
+    const signUpService = new AuthService();
     const { username, email, password } = formData;
     signUpService
       .signupUser(username, email, password)
