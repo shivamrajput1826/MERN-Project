@@ -32,3 +32,36 @@ turn it into json for us.
 
 So now we are going to take that user entity, and convert it into user Dto instance
 this Dto instance thing is going to have all of our different serialization rules.
+
+
+cookie file->
+get /asdf  ->     Server -> 
+
+headers
+cookie: eye44ji
+
+In Server
+1)Cookie-session library looks at the cookie headers
+2)Cookie-session decodes the string, resulting in an object
+3)We get access to session object in a request handler using a decorator
+4)We add/remove/change the properites on the session object
+5)Cookie session sees the updated session and turns it into an encrypted string..
+6) String set back in the 'Set Cookie' header on the response object.
+
+@Module({
+  imports: [TypeOrmModule.forFeature([User])],
+  providers: [
+    UsersService,
+    AuthService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CurrentUserInterceptor,
+    },
+  ],
+  controllers: [UsersController],
+})
+
+Guard-> Reject request to certain handlers if the user is not signed in.
+class AuthGaurd-> canActivate()->Return truthy value if user can access this route, false
+if not.
+

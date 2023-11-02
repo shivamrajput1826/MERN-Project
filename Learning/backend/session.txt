@@ -1,0 +1,18 @@
+Session->
+we give a cookie and with the help of cookie we can find which user to show and which
+not.
+in the main.ts
+we have added middlerware
+app.use(
+    cookieSession({
+      keys: ['asdfas'],
+    }),
+  );
+ This will help in the addition of session cookie..
+ Now we added encrypted userId in the session object and then in the signout we 
+ have given null to make sure the session cookie is finished.
+
+ Guard-> Reject request to certain handlers if the user is not signed in
+ Interceptor+Decorator -> Automatically tell a handlerr who the currently signed in user is
+ 
+  
