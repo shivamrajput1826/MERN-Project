@@ -1,17 +1,16 @@
 import React, { forwardRef, ForwardedRef, InputHTMLAttributes } from "react";
 interface IInputTextProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  className?: string;
 }
 
 const InputText = forwardRef(
   (
-    {name, ...otherProps }: IInputTextProps,
+    {name, className,...otherProps }: IInputTextProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
-      <div>
-        <input id={name} name={name} ref={ref} {...otherProps} />
-      </div>
+        <input id={name} name={name} ref={ref} {...otherProps} className={className}/>
     );
   }
 );

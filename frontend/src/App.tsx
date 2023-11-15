@@ -4,6 +4,8 @@ import { ErrorBoundary } from "./components/error/errorBoundary";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import { routes } from "./routes";
+import Header from "./components/atomic/Header";
+import './index.css'
 
 export const App = () => {
   return (
@@ -11,6 +13,7 @@ export const App = () => {
       <Generic />
       <ErrorBoundary>
         <Router>
+        <Header/>
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               {routes.map((route, index) => (

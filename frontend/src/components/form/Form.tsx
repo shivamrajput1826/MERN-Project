@@ -1,30 +1,26 @@
-import React, { FormEvent, useState, useRef } from "react";
+import React, { FormEvent, useState, useRef,InputHTMLAttributes } from "react";
 import InputText from "./InputText";
-import styled from "styled-components";
 
-interface Field {
+interface Field extends InputHTMLAttributes<HTMLInputElement>  {
   label: string;
   name: string;
   type: string;
   required?: boolean;
   defaultValue?: string;
   validator?: (value: string) => boolean;
+  className?: string;
 }
 
 interface IForms {
   fields: Field[];
-  onSubmit: (formData: Record<string, string>) => void;
+  onSubmit?: (formData: Record<string, string>) => void;
+  className?: string;
+  showSubmitButton?: boolean;
+  children?: React.ReactNode
+
 }
 
-const StyledFormContainer=styled.div`
-margin:12px;
-`
-
-const StyledContainer=styled.div`
-margin-bottom:12px;
-`
-
-const Form = ({ fields, onSubmit,...otherProps }: IForms) => {
+const Form = ({ fields, onSubmit,className,showSubmitButton,children,...otherProps }: IForms) => {
   const initialValues: Record<string, string> = {};
   fields.forEach((field) => {
     initialValues[field.name] = field.defaultValue || "";
@@ -44,7 +40,7 @@ const Form = ({ fields, onSubmit,...otherProps }: IForms) => {
     e.preventDefault();
     const validationErrors = validateFields();
     if (Object.keys(validationErrors).length === 0) {
-      onSubmit(formData);
+      onSubmit && onSubmit(formData);
     } else {
       setErrors(validationErrors);
     }
@@ -63,11 +59,11 @@ const Form = ({ fields, onSubmit,...otherProps }: IForms) => {
   };
 
   return (
-    <StyledFormContainer>
-    <form onSubmit={handleSubmit}>
+    <>
+    <form onSubmit={handleSubmit} className={className}>
       {fields.map((field) => {
         return (
-          <StyledContainer key={field.name}>
+          <React.Fragment key={field.name}>
             <InputText
               type={field.type}
               name={field.name}
@@ -76,15 +72,17 @@ const Form = ({ fields, onSubmit,...otherProps }: IForms) => {
               ref={inputRefs}
               placeholder={field.label}
               autoComplete="off"
+              className={field?.className}
               {...otherProps}
             />
             {errors[field.name] && <span style={{color:"#ff0000"}}>{errors[field.name]}</span>}
-          </StyledContainer>
+          </React.Fragment>
         );
       })}
-      <button type="submit">Submit</button>
+      {children&&<>{children}</>}
+      {showSubmitButton && <button type="submit">Submit</button>}
     </form>
-    </StyledFormContainer>
+    </>
   );
 };
 
